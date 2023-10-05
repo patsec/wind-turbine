@@ -1,0 +1,2 @@
+configs/grafana/plugins/*
+!configs/grafana/plugins/.gitkeep

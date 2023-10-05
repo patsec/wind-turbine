@@ -1,0 +1,26 @@
+<ot-sim>
+  <message-bus>
+    <pull-endpoint>tcp://127.0.0.1:1234</pull-endpoint>
+    <pub-endpoint>tcp://127.0.0.1:5678</pub-endpoint>
+  </message-bus>
+  <cpu>
+    <api-endpoint>0.0.0.0:9101</api-endpoint>
+    <module name="backplane">ot-sim-message-bus {{config_file}}</module>
+    <module name="ground-truth">ot-sim-ground-truth-module {{config_file}}</module>
+    <module name="modbus">ot-sim-modbus-module {{config_file}}</module>
+  </cpu>
+  <ground-truth>
+    <elastic opensearch="true">
+      <endpoint>http://opensearch:9200</endpoint>
+      <index-base-name>wind-turbine</index-base-name>
+      <label name="turbine">wtg-1</label>
+    </elastic>
+  </ground-truth>
+  <modbus name="modbus-outstation" mode="server">
+    <endpoint>0.0.0.0:502</endpoint>
+    <register type="coil">
+      <address>1</address>
+      <tag>feathered</tag>
+    </register>
+  </modbus>
+</ot-sim>

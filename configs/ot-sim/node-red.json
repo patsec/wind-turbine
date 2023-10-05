@@ -1,0 +1,512 @@
+[
+    {
+        "id": "e546b69bae9ae648",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d73a70f5016eddad",
+        "type": "ui_gauge",
+        "z": "e546b69bae9ae648",
+        "name": "",
+        "group": "a6dbb44b8889dd75",
+        "order": 1,
+        "width": 6,
+        "height": 5,
+        "gtype": "compass",
+        "title": "Wind Direction",
+        "label": "deg",
+        "format": "{{value | number:0}}",
+        "min": 0,
+        "max": "360",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 440,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "4a647145a5a11780",
+        "type": "ui_gauge",
+        "z": "e546b69bae9ae648",
+        "name": "",
+        "group": "a6dbb44b8889dd75",
+        "order": 3,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "Wind Speed",
+        "label": "m/s",
+        "format": "{{value | number:0}}",
+        "min": "0",
+        "max": "25",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "10",
+        "seg2": "20",
+        "diff": false,
+        "className": "",
+        "x": 430,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "3c8006946f0953b5",
+        "type": "ui_gauge",
+        "z": "e546b69bae9ae648",
+        "name": "",
+        "group": "a6dbb44b8889dd75",
+        "order": 2,
+        "width": 6,
+        "height": 5,
+        "gtype": "compass",
+        "title": "Yaw Current",
+        "label": "deg",
+        "format": "{{value | number:0}}",
+        "min": 0,
+        "max": "360",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 430,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "9761670d3b860297",
+        "type": "ui_gauge",
+        "z": "e546b69bae9ae648",
+        "name": "",
+        "group": "a6dbb44b8889dd75",
+        "order": 4,
+        "width": 6,
+        "height": 5,
+        "gtype": "compass",
+        "title": "Yaw Set-point",
+        "label": "deg",
+        "format": "{{value | number:0}}",
+        "min": 0,
+        "max": "360",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 440,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "f16c0d84ade2f992",
+        "type": "ot-sim in",
+        "z": "e546b69bae9ae648",
+        "tag": "turbine.mw-output",
+        "updates": false,
+        "x": 190,
+        "y": 900,
+        "wires": [
+            [
+                "83b2994676527c4f"
+            ]
+        ]
+    },
+    {
+        "id": "e2b3bdc1febbc737",
+        "type": "ot-sim in",
+        "z": "e546b69bae9ae648",
+        "tag": "yaw.setpoint",
+        "updates": false,
+        "x": 170,
+        "y": 820,
+        "wires": [
+            [
+                "9761670d3b860297"
+            ]
+        ]
+    },
+    {
+        "id": "1c330c173cc01052",
+        "type": "ot-sim in",
+        "z": "e546b69bae9ae648",
+        "tag": "yaw.current",
+        "updates": false,
+        "x": 170,
+        "y": 740,
+        "wires": [
+            [
+                "3c8006946f0953b5"
+            ]
+        ]
+    },
+    {
+        "id": "28b9d15304ebdd0f",
+        "type": "ot-sim in",
+        "z": "e546b69bae9ae648",
+        "tag": "pressure",
+        "updates": false,
+        "x": 160,
+        "y": 660,
+        "wires": [
+            [
+                "7f63f423bd62ba4b"
+            ]
+        ]
+    },
+    {
+        "id": "27960eb64ba88271",
+        "type": "ot-sim in",
+        "z": "e546b69bae9ae648",
+        "tag": "temp.high",
+        "updates": false,
+        "x": 160,
+        "y": 580,
+        "wires": [
+            [
+                "228fd82ea868949e"
+            ]
+        ]
+    },
+    {
+        "id": "9fe88bea251c0a27",
+        "type": "ot-sim in",
+        "z": "e546b69bae9ae648",
+        "tag": "speed.high",
+        "updates": false,
+        "x": 160,
+        "y": 500,
+        "wires": [
+            [
+                "4a647145a5a11780"
+            ]
+        ]
+    },
+    {
+        "id": "24c46e82133f954d",
+        "type": "ot-sim in",
+        "z": "e546b69bae9ae648",
+        "tag": "dir.high",
+        "updates": false,
+        "x": 150,
+        "y": 420,
+        "wires": [
+            [
+                "d73a70f5016eddad"
+            ]
+        ]
+    },
+    {
+        "id": "83b2994676527c4f",
+        "type": "ui_text",
+        "z": "e546b69bae9ae648",
+        "group": "a6dbb44b8889dd75",
+        "order": 6,
+        "width": 6,
+        "height": 1,
+        "name": "",
+        "label": "Power Output (MW)",
+        "format": "{{msg.payload | number:2}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 450,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "7f63f423bd62ba4b",
+        "type": "ui_text",
+        "z": "e546b69bae9ae648",
+        "group": "a6dbb44b8889dd75",
+        "order": 7,
+        "width": 6,
+        "height": 1,
+        "name": "",
+        "label": "Absolute Pressure (kPa)",
+        "format": "{{msg.payload | number:2}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 470,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "228fd82ea868949e",
+        "type": "ui_text",
+        "z": "e546b69bae9ae648",
+        "group": "a6dbb44b8889dd75",
+        "order": 5,
+        "width": 6,
+        "height": 1,
+        "name": "",
+        "label": "Temperature (˚C)",
+        "format": "{{msg.payload | number:1}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 440,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "425cab794597fc68",
+        "type": "ot-sim out",
+        "z": "e546b69bae9ae648",
+        "tag": "turbine.emergency-stop",
+        "x": 610,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "02acd3ecce65f475",
+        "type": "ot-sim in",
+        "z": "e546b69bae9ae648",
+        "tag": "turbine.emergency-stop",
+        "updates": false,
+        "x": 200,
+        "y": 1240,
+        "wires": [
+            [
+                "58bee7d8dcfd0cf2",
+                "7f06943b1cf51e07"
+            ]
+        ]
+    },
+    {
+        "id": "58bee7d8dcfd0cf2",
+        "type": "change",
+        "z": "e546b69bae9ae648",
+        "name": "Release Stop",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "msg.payload = 1",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 1160,
+        "wires": [
+            [
+                "084cde5c9ba94980"
+            ]
+        ]
+    },
+    {
+        "id": "7f06943b1cf51e07",
+        "type": "change",
+        "z": "e546b69bae9ae648",
+        "name": "Emergency Stop",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "msg.payload = 0",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 1320,
+        "wires": [
+            [
+                "fd62535a79c78b72"
+            ]
+        ]
+    },
+    {
+        "id": "084cde5c9ba94980",
+        "type": "ui_button",
+        "z": "e546b69bae9ae648",
+        "name": "",
+        "group": "a6dbb44b8889dd75",
+        "order": 12,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Release Stop",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "green",
+        "className": "",
+        "icon": "",
+        "payload": "0",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 510,
+        "y": 1160,
+        "wires": [
+            [
+                "425cab794597fc68"
+            ]
+        ]
+    },
+    {
+        "id": "fd62535a79c78b72",
+        "type": "ui_button",
+        "z": "e546b69bae9ae648",
+        "name": "",
+        "group": "a6dbb44b8889dd75",
+        "order": 11,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Emergency Stop",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "red",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 530,
+        "y": 1320,
+        "wires": [
+            [
+                "425cab794597fc68"
+            ]
+        ]
+    },
+    {
+        "id": "4229b0fd8f411284",
+        "type": "ot-sim in",
+        "z": "e546b69bae9ae648",
+        "tag": "feathered",
+        "updates": false,
+        "x": 160,
+        "y": 980,
+        "wires": [
+            [
+                "bd8d6b2427847213"
+            ]
+        ]
+    },
+    {
+        "id": "056ed1331b3e9867",
+        "type": "ui_text",
+        "z": "e546b69bae9ae648",
+        "group": "a6dbb44b8889dd75",
+        "order": 8,
+        "width": 6,
+        "height": 1,
+        "name": "",
+        "label": "Feathered",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 420,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "bd8d6b2427847213",
+        "type": "function",
+        "z": "e546b69bae9ae648",
+        "name": "Convert integer",
+        "func": "if (Number(msg.payload) == 0) {\n    msg.payload = \"no\"\n} else {\n    msg.payload = \"yes\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 1040,
+        "wires": [
+            [
+                "056ed1331b3e9867"
+            ]
+        ]
+    },
+    {
+        "id": "8aa64b2de6f110c3",
+        "type": "ui_spacer",
+        "z": "e546b69bae9ae648",
+        "name": "spacer",
+        "group": "a6dbb44b8889dd75",
+        "order": 9,
+        "width": 12,
+        "height": 1
+    },
+    {
+        "id": "ca585af8f1f79300",
+        "type": "ui_spacer",
+        "z": "e546b69bae9ae648",
+        "name": "spacer",
+        "group": "a6dbb44b8889dd75",
+        "order": 10,
+        "width": 12,
+        "height": 1
+    },
+    {
+        "id": "a6dbb44b8889dd75",
+        "type": "ui_group",
+        "name": "Main",
+        "tab": "53b43465f03cc80e",
+        "order": 1,
+        "disp": true,
+        "width": 12,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "53b43465f03cc80e",
+        "type": "ui_tab",
+        "name": "Wind Turbine",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]

@@ -1,0 +1,28 @@
+tasks:
+- init: |
+    git lfs pull
+
+    curl -L -o /tmp/opensearch.zip "https://grafana.com/api/plugins/grafana-opensearch-datasource/versions/2.13.0/download?os=linux&arch=amd64"
+    unzip -d configs/grafana/plugins /tmp/opensearch.zip
+
+    docker-compose pull wireshark main-ctlr opensearch grafana
+- command: |
+    docker-compose up -d
+
+ports:
+- port: 1880
+  name: HMI
+  description: Turbine HMI (at /ui path)
+- port: 3000
+  name: Grafana
+  description: Turbine Status Dashboard
+- port: 8080
+  name: Wireshark
+  description: Wireshark GUI (at /vnc.html path)
+- port: 8090
+  name: Adversary
+  description: Adversary Desktop (at /vnc.html path)
+
+vscode:
+  extensions:
+  - ms-azuretools.vscode-docker

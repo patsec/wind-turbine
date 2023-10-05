@@ -1,0 +1,133 @@
+version: '3.8'
+
+services:
+  wireshark:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.tools
+    image: ghcr.io/patsec/wind-turbine/tools:main
+    init: true
+    privileged: true # required for capturing traffic on host interfaces
+    network_mode: host
+    volumes:
+    - ./configs/docker/tigervnc-wireshark.conf:/etc/supervisor/conf.d/tigervnc-wireshark.conf
+    - ./configs/docker/wireshark.conf:/etc/supervisor/conf.d/wireshark.conf
+  adversary:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.tools
+    image: ghcr.io/patsec/wind-turbine/tools:main
+    init: true
+    privileged: true # required for iptables to work
+#   sysctls: # uncomment this section if Docker host doesn't already have IP forwarding enabled
+#   - net.ipv4.ip_forward=1
+#   - net.ipv6.conf.all.forwarding=1
+#   - net.ipv4.conf.all.send_redirects=0
+    volumes:
+    - ./configs/docker/tigervnc-adversary.conf:/etc/supervisor/conf.d/tigervnc-adversary.conf
+    - ./scripts/aitm.py:/root/aitm.py
+    - ./scripts/attack.sh:/root/attack.sh
+    ports:
+    - 8090:8080
+    networks:
+      vpc:
+        ipv4_address: 10.11.12.200
+  main-ctlr:
+    image: ghcr.io/patsec/ot-sim/ot-sim:main
+    init: true
+    depends_on:
+    - yaw-ctlr
+    - anemometer
+    - blade-1
+    - blade-2
+    - blade-3
+    volumes:
+    - ./configs/ot-sim/main-controller.xml:/etc/ot-sim/config.xml
+    - ./configs/ot-sim/node-red.json:/etc/node-red.json
+    ports:
+    - 1880:1880
+    networks:
+      vpc:
+        ipv4_address: 10.11.12.100
+  yaw-ctlr:
+    image: ghcr.io/patsec/ot-sim/ot-sim:main
+    init: true
+    depends_on:
+    - opensearch
+    volumes:
+    - ./configs/ot-sim/yaw-controller.xml:/etc/ot-sim/config.xml
+    networks:
+      vpc:
+        ipv4_address: 10.11.12.101
+  anemometer:
+    image: ghcr.io/patsec/ot-sim/ot-sim:main
+    init: true
+    depends_on:
+    - opensearch
+    volumes:
+    - ./configs/ot-sim/anemometer.xml:/etc/ot-sim/config.xml
+    - ./configs/ot-sim/weather.csv:/etc/ot-sim/data/weather.csv
+    networks:
+      vpc:
+        ipv4_address: 10.11.12.102
+  blade-1:
+    image: ghcr.io/patsec/ot-sim/ot-sim:main
+    init: true
+    depends_on:
+    - opensearch
+    volumes:
+    - ./configs/ot-sim/blade-1.xml:/etc/ot-sim/config.xml
+    networks:
+      vpc:
+        ipv4_address: 10.11.12.103
+  blade-2:
+    image: ghcr.io/patsec/ot-sim/ot-sim:main
+    init: true
+    depends_on:
+    - opensearch
+    volumes:
+    - ./configs/ot-sim/blade-2.xml:/etc/ot-sim/config.xml
+    networks:
+      vpc:
+        ipv4_address: 10.11.12.104
+  blade-3:
+    image: ghcr.io/patsec/ot-sim/ot-sim:main
+    init: true
+    depends_on:
+    - opensearch
+    volumes:
+    - ./configs/ot-sim/blade-3.xml:/etc/ot-sim/config.xml
+    networks:
+      vpc:
+        ipv4_address: 10.11.12.105
+  opensearch:
+    image: opensearchproject/opensearch
+    init: true
+    volumes:
+    - ./configs/opensearch/opensearch.yml:/usr/share/opensearch/config/opensearch.yml
+    networks:
+      vpc:
+        ipv4_address: 10.11.12.150
+  grafana:
+    image: grafana/grafana-oss
+    init: true
+    depends_on:
+    - opensearch
+    ports:
+    - 3000:3000
+    volumes:
+    - ./configs/grafana/plugins:/var/lib/grafana/plugins
+    - ./configs/grafana/grafana.ini:/etc/grafana/grafana.ini
+    - ./configs/grafana/opensearch-data-source.yml:/etc/grafana/provisioning/datasources/opensearch.yml
+    - ./configs/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+    - ./configs/grafana/turbine-dashboard.json:/var/lib/grafana/dashboards/turbine-dashboard.json
+    networks:
+      vpc:
+        ipv4_address: 10.11.12.151
+networks:
+  vpc:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 10.11.12.0/24
+        gateway: 10.11.12.1

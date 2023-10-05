@@ -1,0 +1,13 @@
+apiVersion: 1
+datasources:
+- name: WindTurbine
+  isDefault: true
+  type: grafana-opensearch-datasource
+  access: proxy
+  url: http://opensearch:9200
+  jsonData:
+    database: '[wind-turbine-]YYYY.MM.DD'
+    interval: 'Daily'
+    timeField: '@timestamp'
+    flavor: 'opensearch'
+    version: '2.10.0'

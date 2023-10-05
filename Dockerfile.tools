@@ -1,0 +1,41 @@
+FROM debian:bookworm
+
+RUN echo "wireshark-common wireshark-common/install-setuid boolean false" | debconf-set-selections
+
+RUN apt update \
+  && apt install -y --no-install-recommends \
+    ca-certificates \
+    dsniff \
+    lxterminal \
+    htop \
+    iptables \
+    iproute2 \
+    nano \
+    novnc \
+    openbox \
+    python3 \
+    python3-pip \
+    supervisor \
+    tcpdump \
+    tigervnc-standalone-server \
+    tint2 \
+    tmux \
+    tshark \
+    vim \
+    wireshark \
+    xdg-utils \
+  && rm -rf /var/lib/apt/lists \
+  && mkdir -p /usr/share/desktop-directories
+
+RUN python3 -m pip install --break-system-packages mitmproxy
+
+COPY configs/docker/openbox-menu.xml /root/.config/openbox/menu.xml
+COPY configs/docker/tint2rc          /root/.config/tint2/tint2rc
+COPY configs/docker/supervisord.conf /etc/
+
+RUN cp /etc/xdg/openbox/rc.xml /root/.config/openbox/rc.xml \
+  && sed -i 's/Clearlooks/Nightmare-01/g' /root/.config/openbox/rc.xml
+
+EXPOSE 8080
+
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
