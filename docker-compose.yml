@@ -35,6 +35,8 @@ services:
   main-ctlr:
     image: ghcr.io/patsec/ot-sim/ot-sim:main
     init: true
+    cap_add:
+    - NET_ADMIN # for Tailscale
     depends_on:
     - yaw-ctlr
     - anemometer
@@ -42,10 +44,15 @@ services:
     - blade-2
     - blade-3
     volumes:
+    - /lib/modules:/lib/modules:ro # for Tailscale
+    - /dev/net/tun:/dev/net/tun    # for Tailscale
     - ./configs/ot-sim/main-controller.xml:/etc/ot-sim/config.xml
     - ./configs/ot-sim/node-red.json:/etc/node-red.json
     ports:
     - 1880:1880
+    environment:
+    - OTSIM_TAILSCALE_AUTHKEY=${OTSIM_TAILSCALE_AUTHKEY} # for Tailscale
+    hostname: ${HOSTNAME} # for Tailscale
     networks:
       vpc:
         ipv4_address: 10.11.12.100
