@@ -8,4 +8,3 @@ curl -L -o /tmp/opensearch.zip "https://grafana.com/api/plugins/grafana-opensear
 unzip -d configs/grafana/plugins /tmp/opensearch.zip
 
 docker compose pull wireshark main-ctlr opensearch grafana
-docker compose up -d
