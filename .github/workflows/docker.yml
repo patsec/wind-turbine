@@ -1,6 +1,7 @@
 name: Publish Docker Image
 on:
-  - push
+  push:
+    branches: ["main"]
 jobs:
   push-to-ghcr:
     name: Push tools Docker image to GitHub Packages
