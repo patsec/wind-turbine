@@ -22,20 +22,16 @@
 
   "portsAttributes": {
     "1880": {
-      "label": "Turbine HMI",
-      "onAutoForward": "openBrowser"
+      "label": "Turbine HMI"
     },
     "3000": {
-      "label": "Turbine Ground Truth",
-      "onAutoForward": "openBrowser"
+      "label": "Turbine Ground Truth"
     },
     "8080": {
-      "label": "Wireshark",
-      "onAutoForward": "openBrowser"
+      "label": "Wireshark"
     },
     "8090": {
-      "label": "Adversary",
-      "onAutoForward": "openBrowser"
+      "label": "Adversary"
     }
   },
 
