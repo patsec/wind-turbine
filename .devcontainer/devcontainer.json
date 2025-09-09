@@ -1,0 +1,40 @@
+{
+  "name": "wind-turbine",
+  "image": "debian:bookworm",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash"
+          }
+        },
+
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  "features": {
+	  "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  "portsAttributes": {
+    "1880": {
+      "label": "Turbine HMI"
+    },
+    "3000": {
+      "label": "Turbine Ground Truth"
+    },
+    "8080": {
+      "label": "Wireshark"
+    },
+    "8090": {
+      "label": "Adversary"
+    }
+  },
+
+  "onCreateCommand": "bash .devcontainer/on-create.sh",
+  "postStartCommand": "docker compose up -d"
+}
