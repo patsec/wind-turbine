@@ -1,6 +1,10 @@
 {
-  "name": "wind-turbine",
+  "name": "wtg-1",
   "image": "debian:bookworm",
+
+  "containerEnv": {
+    "HOSTNAME": "wtg-1"
+  },
 
   "customizations": {
     "vscode": {
